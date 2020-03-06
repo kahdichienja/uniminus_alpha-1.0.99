@@ -1,0 +1,108 @@
+{% extends 'stuffbase.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="page-container">
+    <!-- start sidebar menu -->
+    {% include 'includes/sidebar.html' %}
+    <!-- end sidebar menu -->
+    <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">Add Student Profile</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="material-icons">home</i>
+                            &nbsp;
+                            <a class="parent-item" href="">Home</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                        </li>
+                        <li class="active">Add Student Profile</li>
+                    </ol>
+                </div>
+                {% if messages %}
+                {% for  message in messages %}
+                <div class="alert alert-{{message.tags}}">
+                    {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <!-- start widget -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <form action="{% url 'stuff:add_student_profile' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card-box">
+                            <div class="card-head">
+                                <header>Add Student Profile Form</header>
+                                <div id="panel-button" class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                    data-upgraded=",MaterialButton">
+                                    <i class="material-icons">more_vert</i>
+                                </div>
+                                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                    data-mdl-for="panel-button">
+                                    <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action
+                                    </li>
+                                    <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                                    </li>
+                                    <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else
+                                        here</li>
+                                </ul>
+                            </div>
+                            <div class="card-body row">
+                                <div class="col-lg-6 p-t-20">
+                                    <div
+                                        class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                        {{ form.first_name }}
+                                        <label class="mdl-textfield__label">First Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 p-t-20">
+                                    <div
+                                        class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                        {{ form.surname }}
+                                        <label class="mdl-textfield__label">Surname</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 p-t-20">
+                                    <div
+                                        class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                        {{ form.last_name }}
+                                        <label class="mdl-textfield__label">Last Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 p-t-20">
+                                    <div
+                                        class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                        {{ form.adm_number }}
+                                        <label class="mdl-textfield__label">Admission Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 p-t-20 text-center">
+                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-primary">
+                                        Save <i class="material-icons">save</i>
+                                    </button>
+                                    <button type="reset"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- end widget -->
+
+        </div>
+    </div>
+    <!-- end page content -->
+    <!-- start chat sidebar -->
+    {% include 'includes/applicationsettings.html' %}
+    <!-- end chat sidebar -->
+</div>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'studentbase.html' %}
+{% block content %}
+<!-- start page container -->
+<div class="page-container">
+    <!-- start sidebar menu -->
+    {% include 'studentutils/sidenav.html' %}
+    <!-- end sidebar menu -->
+    <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">Add Student Profile</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="material-icons">home</i>
+                            &nbsp;
+                            <a class="parent-item" href="">Home</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                        </li>
+                        <li class="active">Add Student Profile</li>
+                    </ol>
+                </div>
+                {% if messages %}
+                {% for  message in messages %}
+                <div class="alert alert-{{message.tags}}">
+                    {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <!-- start widget -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <form action="{% url 'student:add_unit' %}" method="POST"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card-box">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card-head">
+                                        <header>Add Unit</header>
+                                    </div>
+                                    <div class="card-body row">
+                                        <div class="col-lg-12 p-t-20">
+                                            <div
+                                                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                                <label class="mdl-textfield__label">Unit Name</label>
+                                                <select name="unit" class="mdl-textfield__input" id="unit">
+                                                    {% for unit in units %}
+                                                    <option class="form-control" value="{{unit.id}}">{{unit.unit_code}}: {{unit.unit_name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <input type="text" hidden name="student" value="{{user.studentprofile.id}}">
+                                        <div class="col-lg-12 p-t-20 text-center">
+                                            <button type="submit"
+                                                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-primary">
+                                                Save <i class="material-icons">save</i>
+                                            </button>
+                                            <button type="reset"
+                                                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-head">
+                                        <header>Unit List</header>
+                                        <div id="panel-button"
+                                            class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                            data-upgraded=",MaterialButton">
+                                            <i class="material-icons">more_vert</i>
+                                        </div>
+                                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                            data-mdl-for="panel-button">
+                                            <li class="mdl-menu__item"><i
+                                                    class="material-icons">assistant_photo</i>Action
+                                            </li>
+                                            <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                                            </li>
+                                            <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something
+                                                else
+                                                here</li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body col-lg-8">
+										<table class="table table-responsive table-hover"
+											id="example4">
+											<thead>
+												<tr>
+													<th>Code</th>
+													<th> Unit </th>
+													<th class="text-danger ml-5"> Delete</th>
+												</tr>
+											</thead>
+											<tbody>
+                                                
+                                                {% for studentUnit in studentUnit_qs %}
+                                                    <tr>
+                                                        <td>{{studentUnit.unit.unit_code}}</td>
+                                                        <td>{{studentUnit.unit.unit_name}}</td>
+                                                        <td>
+                                                            <a href="{% url 'student:delete_unit' studentUnit.id %}" class="ml-5">
+                                                                <i class="material-icons text-danger">delete</i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                    
+												
+											</tbody>
+										</table>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- end widget -->
+
+    </div>
+</div>
+<!-- end page content -->
+<!-- start chat sidebar -->
+{% include 'studentutils/settings.html' %}
+<!-- end chat sidebar -->
+</div>
+<!-- end page container -->
+{% endblock %}

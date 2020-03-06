@@ -1,0 +1,87 @@
+{% extends 'stuffbase.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-container">
+    <!-- start sidebar menu -->
+    {% include 'includes/sidebar.html' %}
+    <!-- end sidebar menu -->
+    <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">Departmental Unit Lists</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="material-icons">home</i>&nbsp;<a class="parent-item" href="">Home</a>&nbsp;<i
+                                class="material-icons">arrow_forward</i>
+                        </li>
+                        <li class="active">Unit Lists</li>
+                    </ol>
+                </div>
+                {% if messages %}
+                {% for  message in messages %}
+                <div class="alert alert-{{message.tags}}">
+                    {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <!-- start widget -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-sm-12 card-box">
+                            <div>
+                                <h2s>Select Unit To Scan</h2s>
+
+                            </div>
+                            <table class="table display product-overview mb-30 mt-4 table-responsive"
+                                id="support_table">
+                                <thead>
+                                    <tr>
+                                        <th>Unit Department</th>
+                                        <th>Unit Code</th>
+                                        <th>Unit Name</th>
+                                        <th class="left">View Student Exam Attendance</th>
+                                        <th>Scan Exam Card</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    {% for unit in unit_list %}
+                                    <tr>
+                                        <td>{{ unit.program.department }}</td>
+                                        <td>{{ unit.unit_code  }}</td>
+                                        <td>{{ unit.unit_name  }} </td>
+                                        <td class="center">
+                                            <a href="{% url 'stuff:exam_attendance_register' unit.id %}">
+                                                <i class="material-icons">list</i>
+                                            </a>
+                                        </td>
+                                        <td class="center">
+                                            <a href="{% url 'stuff:scan' unit.id %}"><i
+                                                    class="material-icons">camera_alt</i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end widget -->
+
+        </div>
+    </div>
+    <!-- end page content -->
+    <!-- start chat sidebar -->
+    {% include 'includes/applicationsettings.html' %}
+    <!-- end chat sidebar -->
+</div>
+
+{% endblock %}
